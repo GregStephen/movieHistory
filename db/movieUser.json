@@ -1,0 +1,14 @@
+{
+  "UserMovie1": {
+    "uid": "user1",
+    "movieId": "movie1",
+    "isRated": true,
+    "rating": 95 
+  },
+  "UserMovie2": {
+    "uid": "user1",
+    "movieId": "movie2",
+    "isRated": true,
+    "rating": 100 
+  }
+}
