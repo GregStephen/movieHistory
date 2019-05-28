@@ -1,0 +1,14 @@
+{
+  "movie1": {
+    "title": "Die Hard",
+    "mpaaId": "rating4",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
+    "releaseDate": "1988"
+  },
+  "movie2": {
+    "title": "Airplane",
+    "mpaaId": "rating2",
+    "imageUrl": "http://www.myconfinedspace.com/wp-content/uploads/2017/11/Airplane-Movie-Poster-720x1080.jpg",
+    "releaseDate": "1980"
+  }
+}

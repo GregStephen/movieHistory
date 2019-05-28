@@ -1,0 +1,11 @@
+{
+  "role1": {
+    "type": "Director"
+  },
+  "role2": {
+    "type": "Writer"
+  },
+  "role3": {
+    "type": "Actor"
+  }
+}
