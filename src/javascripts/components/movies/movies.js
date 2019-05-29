@@ -5,8 +5,11 @@ const movieStringBuilder = (uid) => {
   movieData.getAllMovies(uid)
     .then((movies) => {
       console.error('movies', movies);
-      let domstring = '<div class="row justify-content-around">';
-      domstring += '<h1 class="col-12">MOVIES</h1>';
+      let domstring = '<div class="row justify-content-between mt-5">';
+      domstring += '<h1>MOVIES</h1>';
+      domstring += '<button id="add-movie-button" class="btn btn-outline-success">Add Movie</button>';
+      domstring += '</div>';
+      domstring += '<div class="row justify-content-around mt-5">';
       movies.forEach((movie) => {
         domstring += '<div class="col-12 col-md-6 col-lg-4">';
         domstring += '<div class="card">';
