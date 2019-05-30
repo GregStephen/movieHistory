@@ -19,7 +19,7 @@ const addMovieModalRatingBuilder = () => {
       ratingValues = Object.values(ratingResults);
       let domString = '';
       domString += '<div>';
-      domString += '<option selected>Rating</option>';
+      // domString += '<option selected>Rating</option>';
       for (let i = 0; i < ratingValues.length; i += 1) {
         domString += `<option>${ratingValues[i]}</option>`;
       }
@@ -50,7 +50,11 @@ const addMovieToDatabase = () => {
 };
 
 const addMovieButtonEvent = () => {
-  $('#add-movie-button').on('click', addMovieToDatabase);
+  $('#add-movie-button').on('click', () => {
+    if ($('#addMovieForm').valid()) {
+      addMovieToDatabase();
+    }
+  });
   $('#movies').on('click', '#addMov', addMovieModalRatingBuilder);
 };
 
