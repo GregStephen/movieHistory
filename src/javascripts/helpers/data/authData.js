@@ -1,5 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import movies from '../../components/movies/movies';
+import watchListButton from '../../components/watchlist/watchlist';
+import addMovieButton from '../../components/addMovie/addMovie';
 
 const moviesDiv = document.getElementById('movies');
 const authDiv = document.getElementById('auth');
@@ -15,6 +18,9 @@ const checkLoginStatus = () => {
       moviesNavbar.classList.remove('hide');
       authNavbar.classList.add('hide');
       logoutNavbar.classList.remove('hide');
+      movies.movieStringBuilder(user.uid);
+      watchListButton.addMovieToWatchlistButtonEvent();
+      addMovieButton.addMovieButtonEvent();
     } else {
       authDiv.classList.remove('hide');
       moviesDiv.classList.add('hide');
