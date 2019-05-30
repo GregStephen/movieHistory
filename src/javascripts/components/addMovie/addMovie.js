@@ -27,8 +27,9 @@ const addMovieModalRatingBuilder = () => {
     }).catch(err => console.error('Mpaa rating builder', err));
 };
 
-const addMovieToDatabase = () => {
-  addMovieModalRatingBuilder();
+const addMovieToDatabase = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
   const mpaaRating = $('#inputMpaaRating')[0].value;
   const uId = firebase.auth().currentUser.uid;
   axios.get(`${firebaseUrl}/mpaaRatings.json`)
@@ -44,17 +45,18 @@ const addMovieToDatabase = () => {
       movieData.addNewMovieToDatabase(newMovieObject)
         .then(() => {
           movies.movieStringBuilder(uId);
+          $('#inputMoviePoster')[0].value = '';
+          $('#inputReleaseDate')[0].value = '';
+          $('#inputMovieTitle')[0].value = '';
+          $('#inputMpaaRating')[0].value = '';
+          $('#addMovieModal').modal('hide');
         })
         .catch(err => console.error('no new movie', err));
     });
 };
 
 const addMovieButtonEvent = () => {
-  $('#add-movie-button').on('click', () => {
-    if ($('#addMovieForm').valid()) {
-      addMovieToDatabase();
-    }
-  });
+  $('#addMovieForm').on('submit', addMovieToDatabase);
   $('#movies').on('click', '#addMov', addMovieModalRatingBuilder);
 };
 
