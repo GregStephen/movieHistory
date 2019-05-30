@@ -17,6 +17,21 @@ const movieStringBuilder = (uid) => {
         domstring += `<h2 class="card-title">${movie.title}</h2>`;
         domstring += `<h6>${movie.releaseDate}</h6>`;
         domstring += `<h6>${movie.mpaaRating}</h6>`;
+        // if movie.isWatched = true then for loop
+        // i = 0; i < movie.rating; i += 1
+        // make full stars
+        // for loop i = movie.rating; i < 5; i += 1
+        // make empty stars
+        // give all the stars a class of "rateStar" and an idea of [i]
+        // else then loop i =0; i < 5; i += 1
+        // make empty stars
+        // do the watchlist loop
+        // add button clicks events to the $('.rateStar')
+        // function checks to see if the movie user item exists
+        // if it does and if isWatched is true then checks rating
+        // if the new rating is the same then it changes rating to 0 and isWatched to false
+        // else it changes the rating and makes sure isWatched is true
+        // if it does NOT exist then it creates a new object and sets those values
         domstring += '<i id="rate1" class="far fa-star fa-2x"></i>';
         domstring += '<i id="rate2" class="far fa-star fa-2x"></i>';
         domstring += '<i id="rate3" class="far fa-star fa-2x"></i>';
