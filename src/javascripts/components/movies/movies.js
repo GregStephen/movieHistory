@@ -4,10 +4,9 @@ import movieData from '../../helpers/data/movieData';
 const movieStringBuilder = (uid) => {
   movieData.getAllMovies(uid)
     .then((movies) => {
-      console.error('movies', movies);
       let domstring = '<div class="row justify-content-between mt-5">';
       domstring += '<h1>MOVIES</h1>';
-      domstring += '<button id="add-movie-button" class="btn btn-outline-success">Add Movie</button>';
+      domstring += '<button type="button" id="addMov" class="btn btn-outline-primary" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>';
       domstring += '</div>';
       domstring += '<div class="row justify-content-around mt-5">';
       movies.forEach((movie) => {
@@ -18,8 +17,11 @@ const movieStringBuilder = (uid) => {
         domstring += `<h2 class="card-title">${movie.title}</h2>`;
         domstring += `<h6>${movie.releaseDate}</h6>`;
         domstring += `<h6>${movie.mpaaRating}</h6>`;
-        domstring += '<h6>Rating:</h6>';
-        domstring += '<a href="#" class="btn btn-primary">Rate</a>';
+        domstring += '<i id="rate1" class="far fa-star fa-2x"></i>';
+        domstring += '<i id="rate2" class="far fa-star fa-2x"></i>';
+        domstring += '<i id="rate3" class="far fa-star fa-2x"></i>';
+        domstring += '<i id="rate4" class="far fa-star fa-2x"></i>';
+        domstring += '<i id="rate5" class="far fa-star fa-2x"></i>';
         domstring += '<div class="watchlistButtonDiv">';
         domstring += '<i class="fas fa-clock fa-2x"></i>';
         if (`${movie.movieUserId}` === '') {

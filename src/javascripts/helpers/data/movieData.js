@@ -30,7 +30,6 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
               movies.forEach((movie) => {
                 const newMovie = movie;
                 const mM = mUserResArray.filter(mov => mov.movieId === movie.id && mov.uid === uid);
-                console.error(mM);
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
                 newMovieArray.push(newMovie);
               });
@@ -41,4 +40,6 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getAllMovies };
+const addNewMovieToDatabase = movieObject => axios.post(`${firebaseUrl}/movies.json`, movieObject);
+
+export default { getAllMovies, addNewMovieToDatabase };

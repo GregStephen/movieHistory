@@ -30,6 +30,57 @@
     </nav>
   </div>
   <div id="auth"></div>
-  <div id="movies" class="container hide"></div>
+  <div id="movies" class="container hide">
+  </div>
+  <div class="modal fade" id="addMovieModal" tabindex="-1" role="dialog" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addMovieModalLabel">Add A Movie!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputMovieTitle">Movie Title</label>
+                <input type="text" class="form-control" id="inputMovieTitle" placeholder="Pulp Fiction">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputMpaaRating">Mpaa Rating</label>
+                <select id="inputMpaaRating" class="form-control">
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputReleaseDate">Released</label>
+                <input type="text" class="form-control" id="inputReleaseDate" placeholder="2019">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="inputMoviePoster">Movie Poster</label>
+                <input type="text" class="form-control" id="inputMoviePoster" placeholder="Image URL">
+              </div>
+            </div>
+            <!-- <div class="input-group mb-3">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+              </div> -->
+              <!-- <div class="input-group-append">
+                <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+              </div> -->
+            <!-- </div> -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="add-movie-button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

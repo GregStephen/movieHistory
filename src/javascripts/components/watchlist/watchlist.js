@@ -22,7 +22,6 @@ const addMovieToWatchList = (e) => {
 const removeMovie = (e) => {
   const uId = firebase.auth().currentUser.uid;
   const UserMoveId = e.target.id;
-  console.error(UserMoveId);
   watchlistData.removeMovieFromWatchList(UserMoveId)
     .then(() => {
       movies.movieStringBuilder(uId);
