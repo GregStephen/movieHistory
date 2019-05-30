@@ -17,6 +17,30 @@ const movieStringBuilder = (uid) => {
         domstring += `<h2 class="card-title">${movie.title}</h2>`;
         domstring += `<h6>${movie.releaseDate}</h6>`;
         domstring += `<h6>${movie.mpaaRating}</h6>`;
+        if (movie.movieUserId === '') {
+          for (let n = 0; n < 5; n += 1) {
+            domstring += `<a id="${n}" class="rateStar far fa-star fa-2x"></a>`;
+          }
+          domstring += '<div class="watchlistButtonDiv">';
+          domstring += '<i class="fas fa-clock fa-2x"></i>';
+          domstring += `<button id="${movie.id}"class="fas fa-plus fa-2x add-to-watchlist"></button>`;
+          domstring += `<button id="${movie.movieUserId}"class="fas fa-check fa-2x hide remove-from-watchlist"></button>`;
+        } else if (movie.isOnWatchList) {
+          for (let n = 0; n < 5; n += 1) {
+            domstring += `<a id="${n}" class="rateStar far fa-star fa-2x"></a>`;
+          }
+          domstring += '<div class="watchlistButtonDiv">';
+          domstring += '<i class="fas fa-clock fa-2x"></i>';
+          domstring += `<button id="${movie.id}"class="fas fa-plus fa-2x hide add-to-watchlist"></button>`;
+          domstring += `<button id="${movie.movieUserId}"class="fas fa-check fa-2x remove-from-watchlist"></button>`;
+        } else if (movie.isWatched) {
+          for (let i = 0; i < movie.rating; i += 1) {
+            domstring += `<a id="${i}" class="rateStar fas fa-star fa-2x"></a>`;
+          }
+          for (let m = movie.rating; m < 5; m += 1) {
+            domstring += `<a id="${m}" class="rateStar far fa-star fa-2x"></a>`;
+          }
+        }
         // if movie.isWatched = true then for loop
         // i = 0; i < movie.rating; i += 1
         // make full stars
@@ -32,20 +56,6 @@ const movieStringBuilder = (uid) => {
         // if the new rating is the same then it changes rating to 0 and isWatched to false
         // else it changes the rating and makes sure isWatched is true
         // if it does NOT exist then it creates a new object and sets those values
-        domstring += '<i id="rate1" class="far fa-star fa-2x"></i>';
-        domstring += '<i id="rate2" class="far fa-star fa-2x"></i>';
-        domstring += '<i id="rate3" class="far fa-star fa-2x"></i>';
-        domstring += '<i id="rate4" class="far fa-star fa-2x"></i>';
-        domstring += '<i id="rate5" class="far fa-star fa-2x"></i>';
-        domstring += '<div class="watchlistButtonDiv">';
-        domstring += '<i class="fas fa-clock fa-2x"></i>';
-        if (`${movie.movieUserId}` === '') {
-          domstring += `<button id="${movie.id}"class="fas fa-plus fa-2x add-to-watchlist"></button>`;
-          domstring += `<button id="${movie.movieUserId}"class="fas fa-check fa-2x hide remove-from-watchlist"></button>`;
-        } else {
-          domstring += `<button id="${movie.id}"class="fas fa-plus fa-2x hide add-to-watchlist"></button>`;
-          domstring += `<button id="${movie.movieUserId}"class="fas fa-check fa-2x remove-from-watchlist"></button>`;
-        }
         domstring += '</div>';
         domstring += '</div>';
         domstring += '</div>';

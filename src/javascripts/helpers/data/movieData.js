@@ -31,6 +31,10 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
                 const newMovie = movie;
                 const mM = mUserResArray.filter(mov => mov.movieId === movie.id && mov.uid === uid);
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
+                newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : '';
+                newMovie.isWatched = mM[0] ? mM[0].isWatched : '';
+                newMovie.rating = mM[0] ? mM[0].rating : '';
+                console.error(newMovie);
                 newMovieArray.push(newMovie);
               });
               resolve(newMovieArray);

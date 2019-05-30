@@ -7,6 +7,7 @@ import movies from '../movies/movies';
 const addMovieToWatchList = (e) => {
   const uId = firebase.auth().currentUser.uid;
   const newMovie = {
+    isOnWatchList: true,
     isWatched: false,
     uid: uId,
     rating: 0,
