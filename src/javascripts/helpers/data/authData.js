@@ -3,6 +3,7 @@ import 'firebase/auth';
 import movies from '../../components/movies/movies';
 import watchListButton from '../../components/watchlist/watchlist';
 import addMovieButton from '../../components/addMovie/addMovie';
+import rateMovieButtons from '../../components/rateMovie/rateMovie';
 
 const moviesDiv = document.getElementById('movies');
 const authDiv = document.getElementById('auth');
@@ -21,6 +22,7 @@ const checkLoginStatus = () => {
       movies.movieStringBuilder(user.uid);
       watchListButton.addMovieToWatchlistButtonEvent();
       addMovieButton.addMovieButtonEvent();
+      rateMovieButtons.rateMovieEventHandler();
     } else {
       authDiv.classList.remove('hide');
       moviesDiv.classList.add('hide');
