@@ -13,11 +13,11 @@ const addMovieToWatchList = (e) => {
     rating: 0,
     movieId: e.target.id,
   };
-  watchlistData.addNewMovieToWatchlist(newMovie)
+  watchlistData.addNewMovieToUserMovieList(newMovie)
     .then(() => {
       movies.movieStringBuilder(uId);
     })
-    .catch(err => console.error('no new movie', err));
+    .catch(err => console.error('error on add movie to watchlist', err));
 };
 
 const removeMovie = (e) => {
@@ -27,7 +27,7 @@ const removeMovie = (e) => {
     .then(() => {
       movies.movieStringBuilder(uId);
     })
-    .catch(err => console.error('no new movie', err));
+    .catch(err => console.error('error on remove movie from watchlist', err));
 };
 
 const addMovieToWatchlistButtonEvent = () => {

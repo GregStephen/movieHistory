@@ -18,7 +18,7 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
           for (let i = 0; i < movies.length; i += 1) {
             movies[i].mpaaRating = ratingResults[movies[i].mpaaId];
           }
-          axios.get(`${firebaseUrl}/movieUser.json`)
+          axios.get(`${firebaseUrl}/movieUser.json?orderBy="uid"&equalTo="${uid}"`)
             .then((movieUserResults) => {
               const movieUserRes = movieUserResults.data;
               const mUserResArray = [];
@@ -29,12 +29,11 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
               const newMovieArray = [];
               movies.forEach((movie) => {
                 const newMovie = movie;
-                const mM = mUserResArray.filter(mov => mov.movieId === movie.id && mov.uid === uid);
+                const mM = mUserResArray.filter(mov => mov.movieId === movie.id);
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
                 newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : '';
                 newMovie.isWatched = mM[0] ? mM[0].isWatched : '';
                 newMovie.rating = mM[0] ? mM[0].rating : '';
-                console.error(newMovie);
                 newMovieArray.push(newMovie);
               });
               resolve(newMovieArray);
