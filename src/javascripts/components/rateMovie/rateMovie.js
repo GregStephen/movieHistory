@@ -37,34 +37,57 @@ const addOrEditMovieRating = (e) => {
         watchlistData.addNewMovieToUserMovieList(newMovie)
           .then(() => {
             movies.movieStringBuilder(uId);
-          })
-          .catch(err => console.error('error on add movie to watchlist', err));
+          });
       } else if (ratedMovie.isWatched === true) {
         if (ratedMovie.rating === newRating) {
           if (ratedMovie.isOnWatchList === true) {
             console.error('is on watchlist and ratings are the same');
-            // changes the ratedMovie.rating to 0
-            // changes ratedMovie.isWatched to False
+            const editedMovie = {
+              id: ratedMovie.id,
+              isOnWatchList: true,
+              isWatched: false,
+              uid: uId,
+              rating: 0,
+              movieId,
+            };
+            watchlistData.editMovieOnUserMovieList(ratedMovie.id, editedMovie)
+              .then(() => {
+                movies.movieStringBuilder(uId);
+              });
           } else {
             console.error('is not on watchlist and ratings are the same');
+            watchlistData.removeMovieFromWatchList(ratedMovie.id)
+              .then(() => {
+                movies.movieStringBuilder(uId);
+              });
             // deletes from usermovie list
           }
         } else {
           console.error('may or may not be on watchlist and rating is a new rating');
+          watchlistData.changeMovieRating(ratedMovie.id, newRating).then(() => {
+            movies.movieStringBuilder(uId);
+          });
           // changes the ratedMovie.rating to the new rating
         }
       } else if (ratedMovie.isWatched === false) {
         console.error('newly rated movie but on watchlist already');
+        const editedMovie = {
+          id: ratedMovie.id,
+          isOnWatchList: true,
+          isWatched: true,
+          uid: uId,
+          rating: newRating,
+          movieId,
+        };
+        watchlistData.editMovieOnUserMovieList(ratedMovie.id, editedMovie)
+          .then(() => {
+            movies.movieStringBuilder(uId);
+          });
         // changes the ratedMovie.rating to new rating
         // changes ratedMovie.isWatched to True
       }
     })
     .catch(err => console.error('error on rating movie', err));
-  // watchlistData.rateMovie(movieId)
-  //   .then(() => {
-  //     movies.movieStringBuilder(uId);
-  //   })
-  //   .catch(err => console.error('cant rate movie', err));
 };
 
 const rateMovieEventHandler = () => {

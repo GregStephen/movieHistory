@@ -20,7 +20,7 @@ const checkLoginStatus = () => {
       authNavbar.classList.add('hide');
       logoutNavbar.classList.remove('hide');
       movies.movieStringBuilder(user.uid);
-      watchListButton.addMovieToWatchlistButtonEvent();
+      watchListButton.watchlistButtonEvent();
       addMovieButton.addMovieButtonEvent();
       rateMovieButtons.rateMovieEventHandler();
     } else {

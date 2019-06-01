@@ -6,6 +6,7 @@ const movieStringBuilder = (uid) => {
     .then((movies) => {
       let domstring = '<div class="row justify-content-between mt-5">';
       domstring += '<h1>MOVIES</h1>';
+      domstring += '<button type="button" id="show-watchlist" class="btn btn-outline-success">Watchlist</button>';
       domstring += '<button type="button" id="addMov" class="btn btn-outline-primary" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>';
       domstring += '</div>';
       domstring += '<div class="row justify-content-around mt-5">';
