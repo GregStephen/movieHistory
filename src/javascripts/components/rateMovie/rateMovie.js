@@ -41,50 +41,36 @@ const addOrEditMovieRating = (e) => {
       } else if (ratedMovie.isWatched === true) {
         if (ratedMovie.rating === newRating) {
           if (ratedMovie.isOnWatchList === true) {
-            console.error('is on watchlist and ratings are the same');
-            const editedMovie = {
-              id: ratedMovie.id,
-              isOnWatchList: true,
-              isWatched: false,
-              uid: uId,
-              rating: 0,
-              movieId,
-            };
-            watchlistData.editMovieOnUserMovieList(ratedMovie.id, editedMovie)
-              .then(() => {
+            // is on watchlist and ratings are the same
+            const newStatus = false;
+            const zeroRating = 0;
+            watchlistData.changeIsWatchedStatus(ratedMovie.id, newStatus).then(() => {
+              watchlistData.changeMovieRating(ratedMovie.id, zeroRating).then(() => {
                 movies.movieStringBuilder(uId);
               });
+            });
           } else {
-            console.error('is not on watchlist and ratings are the same');
+          // deletes from usermovie list
             watchlistData.removeMovieFromWatchList(ratedMovie.id)
               .then(() => {
                 movies.movieStringBuilder(uId);
               });
-            // deletes from usermovie list
           }
         } else {
-          console.error('may or may not be on watchlist and rating is a new rating');
+          // changes the ratedMovie.rating to the new rating
           watchlistData.changeMovieRating(ratedMovie.id, newRating).then(() => {
             movies.movieStringBuilder(uId);
           });
-          // changes the ratedMovie.rating to the new rating
         }
       } else if (ratedMovie.isWatched === false) {
-        console.error('newly rated movie but on watchlist already');
-        const editedMovie = {
-          id: ratedMovie.id,
-          isOnWatchList: true,
-          isWatched: true,
-          uid: uId,
-          rating: newRating,
-          movieId,
-        };
-        watchlistData.editMovieOnUserMovieList(ratedMovie.id, editedMovie)
-          .then(() => {
-            movies.movieStringBuilder(uId);
-          });
         // changes the ratedMovie.rating to new rating
         // changes ratedMovie.isWatched to True
+        const newStatus = true;
+        watchlistData.changeIsWatchedStatus(ratedMovie.id, newStatus).then(() => {
+          watchlistData.changeMovieRating(ratedMovie.id, newRating).then(() => {
+            movies.movieStringBuilder(uId);
+          });
+        });
       }
     })
     .catch(err => console.error('error on rating movie', err));
