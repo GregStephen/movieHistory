@@ -4,9 +4,11 @@ import movieData from '../../helpers/data/movieData';
 const movieStringBuilder = (uid) => {
   movieData.getAllMovies(uid)
     .then((movies) => {
+      const moviesOnWatchlist = movies.filter(movie => movie.isOnWatchList === true);
+      const watchlistAmount = moviesOnWatchlist.length;
       let domstring = '<div class="row justify-content-between mt-5">';
       domstring += '<h1>MOVIES</h1>';
-      domstring += '<button type="button" id="show-watchlist" class="btn btn-outline-success">Watchlist</button>';
+      domstring += `<button type="button" id="show-watchlist" class="btn btn-outline-success">Watchlist <span class="badge badge-light">${watchlistAmount}</span></button>`;
       domstring += '<button type="button" id="addMov" class="btn btn-outline-primary" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>';
       domstring += '</div>';
       domstring += '<div class="row justify-content-around mt-5">';
@@ -52,12 +54,6 @@ const movieStringBuilder = (uid) => {
             domstring += `<button type="button" value="${n}" id="${movie.id}" class="rateStar far fa-star fa-2x"></button>`;
           }
         }
-        // add button clicks events to the $('.rateStar')
-        // function checks to see if the movie user item exists
-        // if it does and if isWatched is true then checks rating
-        // if the new rating is the same then it changes rating to 0 and isWatched to false
-        // else it changes the rating and makes sure isWatched is true
-        // if it does NOT exist then it creates a new object and sets those values
         domstring += '</div>';
         domstring += '</div>';
         domstring += '</div>';

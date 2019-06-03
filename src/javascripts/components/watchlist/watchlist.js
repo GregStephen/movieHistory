@@ -31,11 +31,13 @@ const removeMovie = (e) => {
     .catch(err => console.error('error on remove movie from watchlist', err));
 };
 
-const showWatchlistOnly = () => {
+const showWatchlistAmount = () => {
   const uId = firebase.auth().currentUser.uid;
   watchlistData.showOnlyWatchlist(uId)
     .then((resp) => {
-      console.error('resp', resp);
+      const respLength = resp.length;
+      console.error(respLength);
+      return respLength;
     })
     .catch(err => console.error('cant show watchlist', err));
 };
@@ -43,7 +45,7 @@ const showWatchlistOnly = () => {
 const watchlistButtonEvent = () => {
   $('#movies').on('click', '.add-to-watchlist', addMovieToWatchList);
   $('#movies').on('click', '.remove-from-watchlist', removeMovie);
-  $('#movies').on('click', '#show-watchlist', showWatchlistOnly);
+  $('#movies').on('click', '#show-watchlist', showWatchlistAmount);
 };
 
 export default { watchlistButtonEvent };
