@@ -3,7 +3,7 @@ import 'firebase/auth';
 import $ from 'jquery';
 import watchlistData from '../../helpers/data/watchlistData';
 import movies from '../movies/movies';
-// import movieData from '../../helpers/data/movieData';
+
 
 const addMovieToWatchList = (e) => {
   const uId = firebase.auth().currentUser.uid;
@@ -32,10 +32,12 @@ const removeMovie = (e) => {
 };
 
 const showWatchlistOnly = () => {
-  // const uId = firebase.auth().currentUser.uid;
-  // movieData.getAllMovies(uId)
-  //   .then()
-  //   .catch(err => console.error('cant show watchlist', err));
+  const uId = firebase.auth().currentUser.uid;
+  watchlistData.showOnlyWatchlist(uId)
+    .then((resp) => {
+      console.error('resp', resp);
+    })
+    .catch(err => console.error('cant show watchlist', err));
 };
 
 const watchlistButtonEvent = () => {
