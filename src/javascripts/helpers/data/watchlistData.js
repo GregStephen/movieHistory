@@ -8,6 +8,7 @@ const removeMovieFromWatchList = userMovieId => axios.delete(`${firebaseUrl}/mov
 const editMovieOnUserMovieList = (userMovieId, newObj) => axios.put(`${firebaseUrl}/movieUser/${userMovieId}.json`, newObj);
 const changeMovieRating = (userMovieId, newRating) => axios.patch(`${firebaseUrl}/movieUser/${userMovieId}.json`, { rating: newRating });
 const changeIsWatchedStatus = (userMovieId, newStatus) => axios.patch(`${firebaseUrl}/movieUser/${userMovieId}.json`, { isWatched: newStatus });
+
 export default {
   addNewMovieToUserMovieList,
   removeMovieFromWatchList,
