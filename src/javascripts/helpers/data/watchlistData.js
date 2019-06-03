@@ -9,25 +9,10 @@ const editMovieOnUserMovieList = (userMovieId, newObj) => axios.put(`${firebaseU
 const changeMovieRating = (userMovieId, newRating) => axios.patch(`${firebaseUrl}/movieUser/${userMovieId}.json`, { rating: newRating });
 const changeIsWatchedStatus = (userMovieId, newStatus) => axios.patch(`${firebaseUrl}/movieUser/${userMovieId}.json`, { isWatched: newStatus });
 
-// const showOnlyWatchlist = uid => new Promise((resolve, reject) => {
-//   axios.get(`${firebaseUrl}/movieUser.json?orderBy="uid"&equalTo="${uid}"`)
-//     .then((results) => {
-//       const movieUserResults = results.data;
-//       const movieUsers = [];
-//       Object.keys(movieUserResults).forEach((movieUserId) => {
-//         movieUserResults[movieUserId].movieUserid = movieUserId;
-//         movieUsers.push(movieUserResults[movieUserId]);
-//       });
-//       console.error('movieUsers', movieUsers);
-//       resolve(movieUsers);
-//     }).catch(err => reject(err));
-// });
-
 export default {
   addNewMovieToUserMovieList,
   removeMovieFromWatchList,
   editMovieOnUserMovieList,
   changeMovieRating,
   changeIsWatchedStatus,
-  // showOnlyWatchlist,
 };
