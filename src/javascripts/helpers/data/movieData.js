@@ -31,9 +31,9 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
                 const newMovie = movie;
                 const mM = mUserResArray.filter(mov => mov.movieId === movie.id);
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
-                newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : '';
-                newMovie.isWatched = mM[0] ? mM[0].isWatched : '';
-                newMovie.rating = mM[0] ? mM[0].rating : '';
+                newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : false;
+                newMovie.isWatched = mM[0] ? mM[0].isWatched : false;
+                newMovie.rating = mM[0] ? mM[0].rating : 0;
                 newMovieArray.push(newMovie);
               });
               resolve(newMovieArray);
@@ -43,6 +43,67 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getSingleMovie = movieIdToFind => new Promise((resolve, reject) => {
+  axios.get(`${firebaseUrl}/movies.json`)
+    .then((movieResult) => {
+      const moviesToShowArray = movieResult.data;
+      const moviesToFind = [];
+      Object.keys(moviesToShowArray).forEach((movieId) => {
+        moviesToShowArray[movieId].id = movieId;
+        moviesToFind.push(moviesToShowArray[movieId]);
+      });
+      const movieToShow = moviesToFind.find(movie => movie.id === movieIdToFind);
+      axios.get(`${firebaseUrl}/mpaaRatings.json`)
+        .then((mpaaResults) => {
+          const ratingResults = mpaaResults.data;
+          movieToShow.mpaaRating = ratingResults[movieToShow.mpaaId];
+          axios.get(`${firebaseUrl}/moviePeopleRoles.json?orderBy="movieId"&equalTo="${movieIdToFind}"`)
+            .then((mPRResults) => {
+              const MPRresults = mPRResults.data;
+              const mPrRes = [];
+              Object.keys(MPRresults).forEach((mPRId) => {
+                MPRresults[mPRId].id = mPRId;
+                mPrRes.push(MPRresults[mPRId]);
+              });
+              axios.get(`${firebaseUrl}/people.json`)
+                .then((people) => {
+                  const peopleResults = people.data;
+                  const peopleArray = [];
+                  Object.keys(peopleResults).forEach((personId) => {
+                    peopleResults[personId].id = personId;
+                    peopleArray.push(peopleResults[personId]);
+                  });
+                  const namedPeopleInRoles = [];
+                  mPrRes.forEach((person) => {
+                    const personToName = person;
+                    const persToFil = peopleArray.filter(per => per.id === person.personId);
+                    personToName.firstName = persToFil[0].firstName;
+                    personToName.lastName = persToFil[0].lastName;
+                    namedPeopleInRoles.push(personToName);
+                  });
+                  const directors = mPrRes.filter(role => role.roleId === 'role1');
+                  const writers = mPrRes.filter(role => role.roleId === 'role2');
+                  const actors = mPrRes.filter(role => role.roleId === 'role3');
+                  movieToShow.directors = directors;
+                  movieToShow.actors = actors;
+                  movieToShow.writers = writers;
+                  axios.get(`${firebaseUrl}/movieUser.json`)
+                    .then((ratings) => {
+                      const rating = ratings.data;
+                      console.error(rating);
+                    });
+                  resolve(movieToShow);
+                });
+            });
+        });
+    })
+    .catch(err => reject(err));
+});
+
 const addNewMovieToDatabase = movieObject => axios.post(`${firebaseUrl}/movies.json`, movieObject);
 
-export default { getAllMovies, addNewMovieToDatabase };
+export default {
+  getAllMovies,
+  addNewMovieToDatabase,
+  getSingleMovie,
+};
