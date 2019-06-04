@@ -17,7 +17,7 @@ const addMovieToWatchList = (e) => {
       isOnWatchList: true,
       isWatched: false,
       uid: uId,
-      rating: 0,
+      rating: '',
       movieId: e.target.id,
     };
     watchlistData.addNewMovieToUserMovieList(newMovie)

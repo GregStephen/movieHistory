@@ -33,7 +33,7 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
                 newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : false;
                 newMovie.isWatched = mM[0] ? mM[0].isWatched : false;
-                newMovie.rating = mM[0] ? mM[0].rating : 0;
+                newMovie.rating = mM[0] ? mM[0].rating : '';
                 newMovieArray.push(newMovie);
               });
               resolve(newMovieArray);
@@ -87,12 +87,22 @@ const getSingleMovie = movieIdToFind => new Promise((resolve, reject) => {
                   movieToShow.directors = directors;
                   movieToShow.actors = actors;
                   movieToShow.writers = writers;
-                  axios.get(`${firebaseUrl}/movieUser.json`)
+                  axios.get(`${firebaseUrl}/movieUser.json?orderBy="movieId"&equalTo="${movieIdToFind}"`)
                     .then((ratings) => {
                       const rating = ratings.data;
-                      console.error(rating);
+                      const ratingArray = [];
+                      Object.keys(rating).forEach((mUId) => {
+                        rating[mUId].id = mUId;
+                        ratingArray.push(rating[mUId]);
+                      });
+                      let totalRating = 0;
+                      ratingArray.forEach((ratingToAdd) => {
+                        totalRating += ratingToAdd.rating;
+                      });
+                      movieToShow.rating = (totalRating / ratingArray.length).toFixed(1);
+                      console.error(movieToShow);
+                      resolve(movieToShow);
                     });
-                  resolve(movieToShow);
                 });
             });
         });

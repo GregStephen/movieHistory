@@ -16,7 +16,6 @@ const addOrEditMovieRating = (e) => {
   const uId = firebase.auth().currentUser.uid;
   const newRating = parseInt(e.target.value, 10);
   const movieId = e.target.id;
-  console.error('movie rated:', newRating, 'movId', movieId, 'uId', uId);
   axios.get(`${firebaseUrl}/movieUser.json?orderBy="uid"&equalTo="${uId}"`)
     .then((ratingMovieResults) => {
       const ratedMovieRes = ratingMovieResults.data;
@@ -43,7 +42,7 @@ const addOrEditMovieRating = (e) => {
           if (ratedMovie.isOnWatchList === true) {
             // is on watchlist and ratings are the same
             const newStatus = false;
-            const zeroRating = 0;
+            const zeroRating = '';
             watchlistData.changeIsWatchedStatus(ratedMovie.id, newStatus).then(() => {
               watchlistData.changeMovieRating(ratedMovie.id, zeroRating).then(() => {
                 movies.movieStringBuilder(uId);
