@@ -87,12 +87,22 @@ const getSingleMovie = movieIdToFind => new Promise((resolve, reject) => {
                   movieToShow.directors = directors;
                   movieToShow.actors = actors;
                   movieToShow.writers = writers;
-                  axios.get(`${firebaseUrl}/movieUser.json`)
+                  axios.get(`${firebaseUrl}/movieUser.json?orderBy="movieId"&equalTo="${movieIdToFind}"`)
                     .then((ratings) => {
                       const rating = ratings.data;
-                      console.error(rating);
+                      const ratingArray = [];
+                      Object.keys(rating).forEach((mUId) => {
+                        rating[mUId].id = mUId;
+                        ratingArray.push(rating[mUId]);
+                      });
+                      let totalRating = 0;
+                      ratingArray.forEach((ratingToAdd) => {
+                        totalRating += ratingToAdd.rating;
+                      });
+                      movieToShow.rating = (totalRating / ratingArray.length).toFixed(1);
+                      console.error(movieToShow);
+                      resolve(movieToShow);
                     });
-                  resolve(movieToShow);
                 });
             });
         });

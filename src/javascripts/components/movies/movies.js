@@ -44,6 +44,7 @@ const showSingleMovieModal = (e) => {
       }
       domstring += '</ul>';
       domstring += '</div>';
+      domstring += `<h4>Average User Rating: ${movieToShow.rating} Stars</h4>`;
       domstring += '</p>';
       domstring += '</div>';
       domstring += '</div>';
