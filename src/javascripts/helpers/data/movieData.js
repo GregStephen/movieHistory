@@ -33,7 +33,7 @@ const getAllMovies = uid => new Promise((resolve, reject) => {
                 newMovie.movieUserId = mM[0] ? mM[0].id : '';
                 newMovie.isOnWatchList = mM[0] ? mM[0].isOnWatchList : false;
                 newMovie.isWatched = mM[0] ? mM[0].isWatched : false;
-                newMovie.rating = mM[0] ? mM[0].rating : 0;
+                newMovie.rating = mM[0] ? mM[0].rating : '';
                 newMovieArray.push(newMovie);
               });
               resolve(newMovieArray);

@@ -44,7 +44,12 @@ const showSingleMovieModal = (e) => {
       }
       domstring += '</ul>';
       domstring += '</div>';
-      domstring += `<h4>Average User Rating: ${movieToShow.rating} Stars</h4>`;
+      domstring += '<h4>Average User Rating:';
+      if (movieToShow.rating === 'NaN') {
+        domstring += 'Not yet Rated';
+      } else {
+        domstring += ` ${movieToShow.rating} Stars</h4>`;
+      }
       domstring += '</p>';
       domstring += '</div>';
       domstring += '</div>';
@@ -88,10 +93,10 @@ const showMoviesStringBuilder = (movies) => {
       domstring += '</div>';
     }
     domstring += '</div>';
-    for (let i = 1; i < movie.rating + 1; i += 1) {
+    for (let i = 1; i < (movie.rating === '' ? 1 : movie.rating + 1); i += 1) {
       domstring += `<button type="button" value="${i}" id="${movie.id}" class="rateStar fas fa-star fa-2x"></button>`;
     }
-    for (let m = movie.rating + 1; m < 6; m += 1) {
+    for (let m = (movie.rating === '' ? 1 : movie.rating + 1); m < 6; m += 1) {
       domstring += `<button type="button" value="${m}" id="${movie.id}" class="rateStar far fa-star fa-2x"></button>`;
     }
     domstring += `<button id=show.${movie.id} class="btn btn-primary col-12 mt-2 single-movie" type="button" aria-expanded="false" aria-controls="collapseExample">`;
