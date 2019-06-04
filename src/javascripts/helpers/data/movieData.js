@@ -87,7 +87,7 @@ const getSingleMovie = movieIdToFind => new Promise((resolve, reject) => {
                   movieToShow.directors = directors;
                   movieToShow.actors = actors;
                   movieToShow.writers = writers;
-                  axios.get(`${firebaseUrl}/movieUser.json?orderBy="movieId"&equalTo="${movieIdToFind}"`)
+                  axios.get(`${firebaseUrl}/movieUser.json`)
                     .then((ratings) => {
                       const rating = ratings.data;
                       console.error(rating);
