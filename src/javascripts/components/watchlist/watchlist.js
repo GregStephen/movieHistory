@@ -9,24 +9,34 @@ import util from '../../helpers/util';
 
 const addMovieToWatchList = (e) => {
   const uId = firebase.auth().currentUser.uid;
-  const newMovie = {
-    isOnWatchList: true,
-    isWatched: false,
-    uid: uId,
-    rating: 0,
-    movieId: e.target.id,
-  };
-  watchlistData.addNewMovieToUserMovieList(newMovie)
-    .then(() => {
+  console.error(e.target.id);
+  const movieUserId = e.target.previousElementSibling.id;
+  if (movieUserId === '') {
+    console.error(movieUserId);
+    const newMovie = {
+      isOnWatchList: true,
+      isWatched: false,
+      uid: uId,
+      rating: 0,
+      movieId: e.target.id,
+    };
+    watchlistData.addNewMovieToUserMovieList(newMovie)
+      .then(() => {
+        movies.movieStringBuilder(uId);
+      })
+      .catch(err => console.error('error on add movie to watchlist', err));
+  } else {
+    watchlistData.changeMovieWatchList(movieUserId, true).then(() => {
       movies.movieStringBuilder(uId);
     })
-    .catch(err => console.error('error on add movie to watchlist', err));
+      .catch(err => console.error('error on add movie to watchlist', err));
+  }
 };
 
 const removeMovie = (e) => {
   const uId = firebase.auth().currentUser.uid;
   const UserMoveId = e.target.id;
-  watchlistData.removeMovieFromWatchList(UserMoveId)
+  watchlistData.changeMovieWatchList(UserMoveId, false)
     .then(() => {
       movies.movieStringBuilder(uId);
     })
@@ -78,7 +88,7 @@ const watchlistMovieStringBuilder = () => {
 
 const removeMovieInWatchlist = (e) => {
   const UserMoveId = e.target.id;
-  watchlistData.removeMovieFromWatchList(UserMoveId)
+  watchlistData.changeMovieWatchList(UserMoveId, false)
     .then(() => {
       watchlistMovieStringBuilder();
     })

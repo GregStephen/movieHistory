@@ -78,7 +78,7 @@ const showMoviesStringBuilder = (movies) => {
     domstring += `<h6>${movie.mpaaRating}</h6>`;
     domstring += '</div>';
     domstring += '<div class="watchlistButtonDiv col-auto">';
-    domstring += '<i class="fas fa-clock fa-2x"></i>';
+    domstring += `<i id="${movie.movieUserId}" class="fas fa-clock fa-2x"></i>`;
     if (movie.movieUserId === '' || movie.isOnWatchList === false) {
       domstring += `<button id="${movie.id}"class="fas fa-plus fa-2x add-to-watchlist"></button>`;
       domstring += '</div>';
@@ -87,7 +87,7 @@ const showMoviesStringBuilder = (movies) => {
       domstring += '</div>';
     }
     domstring += '</div>';
-    for (let i = 1; i < `${movie.rating === 0 ? 'movie.rating + 1' : '6'}`; i += 1) {
+    for (let i = 1; i < movie.rating + 1; i += 1) {
       domstring += `<button type="button" value="${i}" id="${movie.id}" class="rateStar fas fa-star fa-2x"></button>`;
     }
     for (let m = movie.rating + 1; m < 6; m += 1) {
