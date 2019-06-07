@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Axios from 'axios';
+import $ from 'jquery';
 import apiKeys from '../apiKeys.json';
 
 import movies from '../../components/movies/movies';
@@ -27,8 +28,9 @@ const checkLoginStatus = () => {
               name: 'New User',
             };
             Axios.post(`${firebaseUrl}/user.json`, newUser);
+            $('#newUserModal').modal('show');
           }
-        }).catch();
+        }).catch(err => console.error('new user error', err));
       authDiv.classList.add('hide');
       moviesDiv.classList.remove('hide');
       moviesNavbar.classList.remove('hide');
